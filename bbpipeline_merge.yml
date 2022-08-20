@@ -1,0 +1,29 @@
+image: hashicorp/terraform
+pipelines:
+  default:        
+        - step:
+            name: 'Private EC2' 
+            script:
+             - cd modules
+             - cd private_ec2
+             - terraform init
+             - terraform plan
+             - terraform apply -auto-approve
+        
+        - step:
+            name: 'Public EC2' 
+            script:
+             - cd modules
+             - cd public_ec2
+             - terraform init
+             - terraform plan
+             - terraform apply -auto-approve
+        
+        - step:
+            name: 'RDS' 
+            script:
+             - cd modules
+             - cd rds
+             - terraform init
+             - terraform plan
+             - terraform apply -auto-approve

@@ -1,0 +1,32 @@
+image: hashicorp/terraform
+pipelines:
+   custom:
+    Deploy:
+        - variables:
+            - name: Create
+              default: S3-dynamoDB-EC2-VPC
+              allowed-values:
+                - S3-dynamoDB-EC2-VPC
+                - S3-dynamoDB-EC2-VPC_and_RDS
+                - None
+
+            - name: Update
+              default: EC2_and_VPC
+              allowed-values:
+                - EC2_and_VPC
+                - S3
+                - dynamoDB
+                - RDS
+                - None
+
+            - name: Destroy
+              default: yes_destroy
+              allowed-values:
+                - yes_destroy
+                - dont_destroy
+
+        - step:
+            name: "Let's run the Script..!!😎😎"
+            script:
+                - cd script
+                - sh script.sh $Create $Update $Destroy
